@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmarthFin — Relatórios</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">SmarthFin</div>
+      <nav>
+        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
+        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
+        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
+        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
+        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+      </nav>
+      <div class="logout" id="logoutBtn">🚪 Sair</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Relatórios</h1>
+        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <div class="panel">
+        <div class="section-header">
+          <h2 style="margin:0">Período</h2>
+        </div>
+        <div class="filters-bar">
+          <div>
+            <label>De</label>
+            <input type="date" id="filterStart" />
+          </div>
+          <div>
+            <label>Até</label>
+            <input type="date" id="filterEnd" />
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="panel">
+          <h2>Receitas x Despesas (últimos 12 meses)</h2>
+          <canvas id="monthlyChart" height="140"></canvas>
+        </div>
+        <div class="panel">
+          <h2>Despesas por categoria</h2>
+          <canvas id="expenseCategoryChart" height="140"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Receitas por categoria</h2>
+        <div style="max-width: 360px; margin: 0 auto;">
+          <canvas id="incomeCategoryChart"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/reports.js"></script>
+</body>
+</html>

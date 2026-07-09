@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmarthFin — Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">SmarthFin</div>
+      <nav>
+        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
+        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
+        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
+        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
+        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+      </nav>
+      <div class="logout" id="logoutBtn">🚪 Sair</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Dashboard</h1>
+        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="label">Saldo total</div>
+          <div class="value" id="cardSaldoTotal">R$ 0,00</div>
+        </div>
+        <div class="card">
+          <div class="label">Receitas do mês</div>
+          <div class="value positive" id="cardReceitasMes">R$ 0,00</div>
+        </div>
+        <div class="card">
+          <div class="label">Despesas do mês</div>
+          <div class="value negative" id="cardDespesasMes">R$ 0,00</div>
+        </div>
+        <div class="card">
+          <div class="label">Saldo do mês</div>
+          <div class="value" id="cardSaldoMes">R$ 0,00</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="panel">
+          <h2>Receitas x Despesas (últimos 6 meses)</h2>
+          <canvas id="monthlyChart" height="120"></canvas>
+        </div>
+        <div class="panel">
+          <h2>Despesas por categoria (mês atual)</h2>
+          <canvas id="categoryChart" height="120"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-header">
+          <h2 style="margin:0">Últimas transações</h2>
+          <a href="transactions.html" class="btn btn-secondary btn-sm">Ver todas</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Conta</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody id="recentTransactionsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

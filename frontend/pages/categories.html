@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmarthFin — Categorias</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">SmarthFin</div>
+      <nav>
+        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
+        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
+        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
+        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
+        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+      </nav>
+      <div class="logout" id="logoutBtn">🚪 Sair</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Categorias</h1>
+        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <div class="panel">
+        <div class="section-header">
+          <h2 style="margin:0">Suas categorias</h2>
+          <button class="btn" id="newCategoryBtn">+ Nova categoria</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cor</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay hidden" id="categoryModal">
+    <div class="modal">
+      <h2 id="modalTitle">Nova categoria</h2>
+      <form id="categoryForm">
+        <input type="hidden" id="categoryId" />
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="type">Tipo</label>
+            <select id="type" required>
+              <option value="despesa">Despesa</option>
+              <option value="receita">Receita</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="color">Cor</label>
+            <input type="color" id="color" value="#6366f1" />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancelar</button>
+          <button type="submit" class="btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/categories.js"></script>
+</body>
+</html>

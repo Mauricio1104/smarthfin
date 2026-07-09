@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmarthFin — Transações</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">SmarthFin</div>
+      <nav>
+        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
+        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
+        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
+        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
+        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+      </nav>
+      <div class="logout" id="logoutBtn">🚪 Sair</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Transações</h1>
+        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <div class="panel">
+        <div class="section-header">
+          <h2 style="margin:0">Filtros</h2>
+          <button class="btn" id="newTransactionBtn">+ Nova transação</button>
+        </div>
+        <div class="filters-bar">
+          <div>
+            <label>De</label>
+            <input type="date" id="filterStart" />
+          </div>
+          <div>
+            <label>Até</label>
+            <input type="date" id="filterEnd" />
+          </div>
+          <div>
+            <label>Tipo</label>
+            <select id="filterType">
+              <option value="">Todos</option>
+              <option value="receita">Receita</option>
+              <option value="despesa">Despesa</option>
+            </select>
+          </div>
+          <div>
+            <label>Categoria</label>
+            <select id="filterCategory"><option value="">Todas</option></select>
+          </div>
+          <div>
+            <label>Conta</label>
+            <select id="filterAccount"><option value="">Todas</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Conta</th>
+                <th>Valor</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay hidden" id="transactionModal">
+    <div class="modal">
+      <h2 id="modalTitle">Nova transação</h2>
+      <form id="transactionForm">
+        <input type="hidden" id="transactionId" />
+        <div class="form-group">
+          <label for="description">Descrição</label>
+          <input type="text" id="description" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="amount">Valor (R$)</label>
+            <input type="number" id="amount" min="0.01" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="type">Tipo</label>
+            <select id="type" required>
+              <option value="despesa">Despesa</option>
+              <option value="receita">Receita</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="transactionDate">Data</label>
+            <input type="date" id="transactionDate" required />
+          </div>
+          <div class="form-group">
+            <label for="account">Conta</label>
+            <select id="account" required></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="category">Categoria</label>
+          <select id="category" required></select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancelar</button>
+          <button type="submit" class="btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/transactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmarthFin — Contas</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="brand">SmarthFin</div>
+      <nav>
+        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
+        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
+        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
+        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
+        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+      </nav>
+      <div class="logout" id="logoutBtn">🚪 Sair</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <h1>Contas</h1>
+        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
+      </div>
+
+      <div id="alertBox"></div>
+
+      <div class="panel">
+        <div class="section-header">
+          <h2 style="margin:0">Suas contas e carteiras</h2>
+          <button class="btn" id="newAccountBtn">+ Nova conta</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Saldo inicial</th>
+                <th>Saldo atual</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="accountsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay hidden" id="accountModal">
+    <div class="modal">
+      <h2 id="modalTitle">Nova conta</h2>
+      <form id="accountForm">
+        <input type="hidden" id="accountId" />
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" id="name" required />
+        </div>
+        <div class="form-group">
+          <label for="type">Tipo</label>
+          <select id="type" required>
+            <option value="corrente">Conta corrente</option>
+            <option value="poupanca">Poupança</option>
+            <option value="carteira">Carteira</option>
+            <option value="cartao_credito">Cartão de crédito</option>
+            <option value="investimento">Investimento</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="initialBalance">Saldo inicial (R$)</label>
+          <input type="number" id="initialBalance" step="0.01" value="0" required />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancelar</button>
+          <button type="submit" class="btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/accounts.js"></script>
+</body>
+</html>
