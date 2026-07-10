@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 const pool = require('../config/db');
 
 const DEFAULT_CATEGORIES = [
@@ -13,10 +14,26 @@ const DEFAULT_CATEGORIES = [
   { name: 'Outras despesas', type: 'despesa', color: '#64748b' }
 ];
 
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 function signToken(userId) {
   return jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d'
   });
+}
+
+async function seedDefaultAccountAndCategories(connection, userId) {
+  await connection.query(
+    'INSERT INTO accounts (user_id, name, type, initial_balance) VALUES (?, ?, ?, ?)',
+    [userId, 'Carteira', 'carteira', 0]
+  );
+
+  for (const cat of DEFAULT_CATEGORIES) {
+    await connection.query(
+      'INSERT INTO categories (user_id, name, type, color) VALUES (?, ?, ?, ?)',
+      [userId, cat.name, cat.type, cat.color]
+    );
+  }
 }
 
 async function register(req, res) {
@@ -46,17 +63,7 @@ async function register(req, res) {
     );
     const userId = result.insertId;
 
-    await connection.query(
-      'INSERT INTO accounts (user_id, name, type, initial_balance) VALUES (?, ?, ?, ?)',
-      [userId, 'Carteira', 'carteira', 0]
-    );
-
-    for (const cat of DEFAULT_CATEGORIES) {
-      await connection.query(
-        'INSERT INTO categories (user_id, name, type, color) VALUES (?, ?, ?, ?)',
-        [userId, cat.name, cat.type, cat.color]
-      );
-    }
+    await seedDefaultAccountAndCategories(connection, userId);
 
     await connection.commit();
 
@@ -88,6 +95,10 @@ async function login(req, res) {
     }
 
     const user = rows[0];
+    if (!user.password_hash) {
+      return res.status(401).json({ error: 'Esta conta usa login com Google. Entre com o Google.' });
+    }
+
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) {
       return res.status(401).json({ error: 'E-mail ou senha inválidos.' });
@@ -104,6 +115,69 @@ async function login(req, res) {
   }
 }
 
+async function googleLogin(req, res) {
+  const { credential } = req.body;
+
+  if (!credential) {
+    return res.status(400).json({ error: 'Credencial do Google ausente.' });
+  }
+
+  try {
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID
+    });
+    const payload = ticket.getPayload();
+
+    if (!payload.email_verified) {
+      return res.status(401).json({ error: 'E-mail do Google não verificado.' });
+    }
+
+    const { sub: googleId, email, name } = payload;
+
+    const [byGoogleId] = await pool.query('SELECT * FROM users WHERE google_id = ?', [googleId]);
+    if (byGoogleId.length > 0) {
+      const user = byGoogleId[0];
+      const token = signToken(user.id);
+      return res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+    }
+
+    const [byEmail] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    if (byEmail.length > 0) {
+      const user = byEmail[0];
+      await pool.query('UPDATE users SET google_id = ? WHERE id = ?', [googleId, user.id]);
+      const token = signToken(user.id);
+      return res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+    }
+
+    const connection = await pool.getConnection();
+    try {
+      await connection.beginTransaction();
+
+      const [result] = await connection.query(
+        'INSERT INTO users (name, email, google_id) VALUES (?, ?, ?)',
+        [name, email, googleId]
+      );
+      const userId = result.insertId;
+
+      await seedDefaultAccountAndCategories(connection, userId);
+
+      await connection.commit();
+
+      const token = signToken(userId);
+      res.status(201).json({ token, user: { id: userId, name, email } });
+    } catch (err) {
+      await connection.rollback();
+      throw err;
+    } finally {
+      connection.release();
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ error: 'Não foi possível autenticar com o Google.' });
+  }
+}
+
 async function me(req, res) {
   try {
     const [rows] = await pool.query('SELECT id, name, email, created_at FROM users WHERE id = ?', [req.userId]);
@@ -117,4 +191,4 @@ async function me(req, res) {
   }
 }
 
-module.exports = { register, login, me };
+module.exports = { register, login, googleLogin, me };

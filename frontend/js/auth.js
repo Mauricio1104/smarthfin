@@ -43,11 +43,34 @@ if (getToken() && (window.location.pathname.endsWith('index.html') || window.loc
   window.location.href = DASHBOARD_URL;
 }
 
+async function handleGoogleCredential(response) {
+  try {
+    const data = await apiRequest('/auth/google', { method: 'POST', body: { credential: response.credential } });
+    setSession(data.token, data.user);
+    window.location.href = DASHBOARD_URL;
+  } catch (err) {
+    showAlert(err.message);
+  }
+}
+
 const googleLoginBtn = document.getElementById('googleLoginBtn');
 if (googleLoginBtn) {
-  googleLoginBtn.addEventListener('click', () => {
-    showAlert('Login com Google estará disponível em breve.', 'info');
-  });
+  if (GOOGLE_CLIENT_ID.startsWith('COLOQUE_AQUI')) {
+    googleLoginBtn.addEventListener('click', () => {
+      showAlert('Login com Google ainda não foi configurado.', 'info');
+    });
+  } else {
+    window.addEventListener('load', () => {
+      google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleGoogleCredential
+      });
+    });
+
+    googleLoginBtn.addEventListener('click', () => {
+      google.accounts.id.prompt();
+    });
+  }
 }
 
 document.querySelectorAll('.toggle-password').forEach((btn) => {
