@@ -596,21 +596,28 @@ body.auth-body-bg {
   text-align: center;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  padding: 12px 6px;
+  border-radius: 12px;
+  padding: 16px 10px;
 }
 
 .auth-features-mobile .item svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   color: var(--auth-accent);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .auth-features-mobile .item .title {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--auth-text);
+  margin-bottom: 3px;
+}
+
+.auth-features-mobile .item .desc {
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--auth-text-muted);
 }
 
 /* Footer */
@@ -635,6 +642,11 @@ body.auth-body-bg {
 
   .auth-mobile-header {
     display: block;
+  }
+
+  .auth-card > h1,
+  .auth-card > p.subtitle {
+    display: none;
   }
 
   .auth-features-mobile {
