@@ -3,3 +3,4 @@ node_modules/
 .claude/
 Thumbs.db
 .DS_Store
+frontend/assets/img/background.png
