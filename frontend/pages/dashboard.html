@@ -9,74 +9,121 @@
 </head>
 <body>
   <div class="app-layout">
-    <aside class="sidebar">
-      <div class="brand">SmarthFin</div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="../assets/img/Logo SF.png" alt="SmarthFin" class="brand-mark" />
+        <span class="brand-text">Smarth<strong>Fin</strong></span>
+      </div>
       <nav>
-        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
-        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
-        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
-        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
-        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+        <a href="dashboard.html" data-page="dashboard.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg></span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="transactions.html" data-page="transactions.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span>
+          <span class="nav-label">Transações</span>
+        </a>
+        <a href="accounts.html" data-page="accounts.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></span>
+          <span class="nav-label">Contas</span>
+        </a>
+        <a href="categories.html" data-page="categories.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 12 22l-9-9V4a1 1 0 0 1 1-1h9l7.59 7.59a2 2 0 0 1 0 2.82Z"></path><circle cx="7.5" cy="7.5" r="1.2"></circle></svg></span>
+          <span class="nav-label">Categorias</span>
+        </a>
+        <a href="reports.html" data-page="reports.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="12"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="18" y1="20" x2="18" y2="15"></line></svg></span>
+          <span class="nav-label">Relatórios</span>
+        </a>
       </nav>
-      <div class="logout" id="logoutBtn">🚪 Sair</div>
+      <div class="sidebar-footer">
+        <button class="collapse-btn" id="collapseBtn" title="Recolher menu" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+      </div>
     </aside>
 
     <main class="main-content">
-      <div class="topbar">
-        <h1>Dashboard</h1>
-        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
-      </div>
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1>Dashboard</h1>
+          <p class="topbar-subtitle">Visão geral das suas finanças</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="period-btn" type="button">
+            <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+            <span>Julho de 2026</span>
+            <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <button class="icon-btn" type="button" title="Notificações">
+            <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span>
+            <span class="badge">2</span>
+          </button>
+          <div class="user-menu">
+            <button class="user-menu-trigger" id="userMenuTrigger" type="button">
+              <span class="avatar" id="userAvatar">?</span>
+              <span class="user-name" id="userBadge"></span>
+              <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            </button>
+            <div class="user-menu-dropdown hidden" id="userDropdown">
+              <button type="button" id="logoutBtn">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
 
-      <div id="alertBox"></div>
+      <div class="page-content">
+        <div id="alertBox"></div>
 
-      <div class="cards-grid">
-        <div class="card">
-          <div class="label">Saldo total</div>
-          <div class="value" id="cardSaldoTotal">R$ 0,00</div>
+        <div class="cards-grid">
+          <div class="card">
+            <div class="label">Saldo total</div>
+            <div class="value" id="cardSaldoTotal">R$ 0,00</div>
+          </div>
+          <div class="card">
+            <div class="label">Receitas do mês</div>
+            <div class="value positive" id="cardReceitasMes">R$ 0,00</div>
+          </div>
+          <div class="card">
+            <div class="label">Despesas do mês</div>
+            <div class="value negative" id="cardDespesasMes">R$ 0,00</div>
+          </div>
+          <div class="card">
+            <div class="label">Saldo do mês</div>
+            <div class="value" id="cardSaldoMes">R$ 0,00</div>
+          </div>
         </div>
-        <div class="card">
-          <div class="label">Receitas do mês</div>
-          <div class="value positive" id="cardReceitasMes">R$ 0,00</div>
-        </div>
-        <div class="card">
-          <div class="label">Despesas do mês</div>
-          <div class="value negative" id="cardDespesasMes">R$ 0,00</div>
-        </div>
-        <div class="card">
-          <div class="label">Saldo do mês</div>
-          <div class="value" id="cardSaldoMes">R$ 0,00</div>
-        </div>
-      </div>
 
-      <div class="charts-grid">
+        <div class="charts-grid">
+          <div class="panel">
+            <h2>Receitas x Despesas (últimos 6 meses)</h2>
+            <canvas id="monthlyChart" height="120"></canvas>
+          </div>
+          <div class="panel">
+            <h2>Despesas por categoria (mês atual)</h2>
+            <canvas id="categoryChart" height="120"></canvas>
+          </div>
+        </div>
+
         <div class="panel">
-          <h2>Receitas x Despesas (últimos 6 meses)</h2>
-          <canvas id="monthlyChart" height="120"></canvas>
-        </div>
-        <div class="panel">
-          <h2>Despesas por categoria (mês atual)</h2>
-          <canvas id="categoryChart" height="120"></canvas>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="section-header">
-          <h2 style="margin:0">Últimas transações</h2>
-          <a href="transactions.html" class="btn btn-secondary btn-sm">Ver todas</a>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Categoria</th>
-                <th>Conta</th>
-                <th>Valor</th>
-              </tr>
-            </thead>
-            <tbody id="recentTransactionsBody"></tbody>
-          </table>
+          <div class="section-header">
+            <h2 style="margin:0">Últimas transações</h2>
+            <a href="transactions.html" class="btn btn-secondary btn-sm">Ver todas</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Categoria</th>
+                  <th>Conta</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody id="recentTransactionsBody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>

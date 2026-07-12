@@ -3,132 +3,202 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmarthFin — Transações</title>
+  <title>SmarthFin — Despesas</title>
   <link rel="icon" type="image/png" href="../assets/img/Logo SF.png" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
   <div class="app-layout">
-    <aside class="sidebar">
-      <div class="brand">SmarthFin</div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="../assets/img/Logo SF.png" alt="SmarthFin" class="brand-mark" />
+        <span class="brand-text">Smarth<strong>Fin</strong></span>
+      </div>
       <nav>
-        <a href="dashboard.html" data-page="dashboard.html">📊 Dashboard</a>
-        <a href="transactions.html" data-page="transactions.html">💸 Transações</a>
-        <a href="accounts.html" data-page="accounts.html">🏦 Contas</a>
-        <a href="categories.html" data-page="categories.html">🏷️ Categorias</a>
-        <a href="reports.html" data-page="reports.html">📈 Relatórios</a>
+        <a href="dashboard.html" data-page="dashboard.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg></span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="transactions.html" data-page="transactions.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span>
+          <span class="nav-label">Transações</span>
+        </a>
+        <a href="accounts.html" data-page="accounts.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></span>
+          <span class="nav-label">Contas</span>
+        </a>
+        <a href="categories.html" data-page="categories.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 12 22l-9-9V4a1 1 0 0 1 1-1h9l7.59 7.59a2 2 0 0 1 0 2.82Z"></path><circle cx="7.5" cy="7.5" r="1.2"></circle></svg></span>
+          <span class="nav-label">Categorias</span>
+        </a>
+        <a href="reports.html" data-page="reports.html" class="nav-link">
+          <span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="12"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="18" y1="20" x2="18" y2="15"></line></svg></span>
+          <span class="nav-label">Relatórios</span>
+        </a>
       </nav>
-      <div class="logout" id="logoutBtn">🚪 Sair</div>
+      <div class="sidebar-footer">
+        <button class="collapse-btn" id="collapseBtn" title="Recolher menu" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+      </div>
     </aside>
 
     <main class="main-content">
-      <div class="topbar">
-        <h1>Transações</h1>
-        <span class="user-badge">Olá, <strong id="userBadge"></strong></span>
-      </div>
-
-      <div id="alertBox"></div>
-
-      <div class="panel">
-        <div class="section-header">
-          <h2 style="margin:0">Filtros</h2>
-          <button class="btn" id="newTransactionBtn">+ Nova transação</button>
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1><span class="crumb-lead">Despesas</span><span class="crumb-sep">›</span>Julho de 2026</h1>
+          <p class="topbar-subtitle">Acompanhe todos os seus gastos do mês</p>
         </div>
-        <div class="filters-bar">
-          <div>
-            <label>De</label>
-            <input type="date" id="filterStart" />
-          </div>
-          <div>
-            <label>Até</label>
-            <input type="date" id="filterEnd" />
-          </div>
-          <div>
-            <label>Tipo</label>
-            <select id="filterType">
-              <option value="">Todos</option>
-              <option value="receita">Receita</option>
-              <option value="despesa">Despesa</option>
-            </select>
-          </div>
-          <div>
-            <label>Categoria</label>
-            <select id="filterCategory"><option value="">Todas</option></select>
-          </div>
-          <div>
-            <label>Conta</label>
-            <select id="filterAccount"><option value="">Todas</option></select>
+        <div class="topbar-actions">
+          <button class="period-btn" type="button">
+            <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+            <span>Julho de 2026</span>
+            <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <button class="icon-btn" type="button" title="Notificações">
+            <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></span>
+            <span class="badge">2</span>
+          </button>
+          <div class="user-menu">
+            <button class="user-menu-trigger" id="userMenuTrigger" type="button">
+              <span class="avatar" id="userAvatar">?</span>
+              <span class="user-name" id="userBadge"></span>
+              <span class="nav-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            </button>
+            <div class="user-menu-dropdown hidden" id="userDropdown">
+              <button type="button" id="logoutBtn">Sair</button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div class="panel">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Categoria</th>
-                <th>Conta</th>
-                <th>Valor</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="transactionsBody"></tbody>
-          </table>
+      <div class="page-content">
+        <div id="alertBox"></div>
+
+        <div class="account-cards">
+          <div class="account-card" style="--account-accent:#a855f7">
+            <div>
+              <div class="label">Nubank</div>
+              <div class="sublabel">Total gasto</div>
+              <div class="value">R$ 833,37</div>
+            </div>
+            <div class="logo">NU</div>
+          </div>
+          <div class="account-card" style="--account-accent:#eab308">
+            <div>
+              <div class="label">Will Bank</div>
+              <div class="sublabel">Total gasto</div>
+              <div class="value">R$ 386,55</div>
+            </div>
+            <div class="logo">W</div>
+          </div>
+          <div class="account-card" style="--account-accent:#64748b">
+            <div>
+              <div class="label">Despesas Diversas</div>
+              <div class="sublabel">Total gasto</div>
+              <div class="value">R$ 805,47</div>
+            </div>
+            <div class="logo">•••</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="section-header">
+            <h2 style="margin:0">Lançamentos do mês</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-secondary btn-sm" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                Filtros
+              </button>
+              <button class="btn btn-secondary btn-sm" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Exportar
+              </button>
+              <button class="btn btn-sm" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Nova Despesa
+              </button>
+            </div>
+          </div>
+
+          <div class="grouped-table-wrap">
+            <div style="display:grid; grid-template-columns: repeat(3, minmax(230px, 1fr)); gap: 24px; min-width: 780px;">
+              <div>
+                <div class="group-header"><span class="mini-logo" style="--account-accent:#a855f7">NU</span> Nubank</div>
+                <table>
+                  <thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th></tr></thead>
+                  <tbody>
+                    <tr><td>01/07</td><td>Mercado Extra</td><td><span class="tag" style="color:#22c55e">Alimentação</span></td><td class="amount despesa">R$ 833,37</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div>
+                <div class="group-header"><span class="mini-logo" style="--account-accent:#eab308">W</span> Will Bank</div>
+                <table>
+                  <thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th></tr></thead>
+                  <tbody>
+                    <tr><td>05/07</td><td>Spotify</td><td><span class="tag" style="color:#a855f7">Assinaturas</span></td><td class="amount despesa">R$ 56,99</td></tr>
+                    <tr><td>07/07</td><td>Drogasil</td><td><span class="tag" style="color:#ef4444">Saúde</span></td><td class="amount despesa">R$ 71,00</td></tr>
+                    <tr><td>09/07</td><td>iFood</td><td><span class="tag" style="color:#22c55e">Alimentação</span></td><td class="amount despesa">R$ 82,20</td></tr>
+                    <tr><td>12/07</td><td>Uber</td><td><span class="tag" style="color:#3b82f6">Transporte</span></td><td class="amount despesa">R$ 150,00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div>
+                <div class="group-header"><span class="mini-logo" style="--account-accent:#64748b">•••</span> Despesas Diversas</div>
+                <table>
+                  <thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th></tr></thead>
+                  <tbody>
+                    <tr><td>02/07</td><td>Cinema</td><td><span class="tag" style="color:#3b82f6">Lazer</span></td><td class="amount despesa">R$ 56,99</td></tr>
+                    <tr><td>03/07</td><td>Show</td><td><span class="tag" style="color:#3b82f6">Lazer</span></td><td class="amount despesa">R$ 71,00</td></tr>
+                    <tr><td>04/07</td><td>Padaria</td><td><span class="tag" style="color:#22c55e">Alimentação</span></td><td class="amount despesa">R$ 82,20</td></tr>
+                    <tr><td>06/07</td><td>Material Limpeza</td><td><span class="tag" style="color:#f59e0b">Casa</span></td><td class="amount despesa">R$ 150,00</td></tr>
+                    <tr><td>08/07</td><td>Conta de Luz</td><td><span class="tag" style="color:#f59e0b">Casa</span></td><td class="amount despesa">R$ 58,13</td></tr>
+                    <tr><td>10/07</td><td>Estacionamento</td><td><span class="tag" style="color:#3b82f6">Transporte</span></td><td class="amount despesa">R$ 123,70</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-footer">
+          <div class="summary-item">
+            <div>
+              <div class="label">Total geral de despesas</div>
+              <div class="value negative">R$ 2.025,39</div>
+            </div>
+            <div class="icon-box danger">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="8 12 12 16 16 12"></polyline><line x1="12" y1="8" x2="12" y2="16"></line></svg>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div>
+              <div class="label">Salário</div>
+              <div class="value positive">R$ 2.100,00</div>
+            </div>
+            <div class="icon-box success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg>
+            </div>
+          </div>
+          <div class="summary-item">
+            <div>
+              <div class="label">Saldo final</div>
+              <div class="value positive">R$ 74,61</div>
+            </div>
+            <div class="icon-box success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   </div>
 
-  <div class="modal-overlay hidden" id="transactionModal">
-    <div class="modal">
-      <h2 id="modalTitle">Nova transação</h2>
-      <form id="transactionForm">
-        <input type="hidden" id="transactionId" />
-        <div class="form-group">
-          <label for="description">Descrição</label>
-          <input type="text" id="description" required />
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="amount">Valor (R$)</label>
-            <input type="number" id="amount" min="0.01" step="0.01" required />
-          </div>
-          <div class="form-group">
-            <label for="type">Tipo</label>
-            <select id="type" required>
-              <option value="despesa">Despesa</option>
-              <option value="receita">Receita</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="transactionDate">Data</label>
-            <input type="date" id="transactionDate" required />
-          </div>
-          <div class="form-group">
-            <label for="account">Conta</label>
-            <select id="account" required></select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="category">Categoria</label>
-          <select id="category" required></select>
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancelar</button>
-          <button type="submit" class="btn">Salvar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <script src="../js/config.js"></script>
   <script src="../js/api.js"></script>
   <script src="../js/nav.js"></script>
-  <script src="../js/transactions.js"></script>
 </body>
 </html>
